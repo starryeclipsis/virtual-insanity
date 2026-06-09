@@ -121,6 +121,9 @@ function removeAvailable(gifName){
 setCoolImgOpacity();
 setRandomImage();
 setInterval(function(){
+    if (!coolImage.complete){
+        lastTime = getTime();
+    }
     coolImageOpacity = (getTime() - lastTime) * 0.0005;
     setCoolImgOpacity();
 },1000/20)

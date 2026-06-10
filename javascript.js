@@ -3,6 +3,7 @@ let coolImageOpacity = 0;
 let lastTime = Date.now();
 let appearSound = new Audio("./whyhellogordonfreeman.wav");
 let shuffleSound = new Audio("./mafia.ogg");
+let lastNaturalWidth = 0;
 const fileNames = [
     "catexplosion.gif",
     "hopebunny.gif",
@@ -30,7 +31,7 @@ const fileNames = [
     "inv.gif",
     "verse.gif",
     "jerma985.gif",
-    ["expie.gif", "i love casualties: unknown. this is an amazing game that everybody should play once in their lifetime because it is so amazing. when you think survival game, you should think casualties: unknown. not minecraft. not any other game. this game is so expressive. you can almost feel the experiment's pain and anguish as they descend the layers, trying their hardest to not die. this game is so beautifully punishing and rewarding. any little mistake you make can lead to hours upon hours of lost time, never to be reclaimed. it teaches you to take a step back and to devise strategies. with a multitude of health mechanics and a detailed crafting system, you don't get to be ignorant. ignorance and blindness do not lead to consistent depths. casualties: unknown is an experience that transcends the traditional game. the games that players play to do feckless tricks. no. casualties: unknown holds a special spark. the game plays you as much as you play it. it's almost like getting over it with bennett foddy. playing something like terraria or minecraft could never simulate the complexity of casualties: unknown. and the story is amazing! the story is amazing. it's hard to see at face value, but it's so, so there. i could go on and on and on about this game. in fact i will. i've played so many games in my lifetime. too many. games are fun. but over the many, many years, games have lost a thrill. eventually, you learn. i learned. you see patterns in games. at some point, you can figure out a game and shake it upside down within a few hours. be competent. but casualties: unknown breaks this pattern. when i first played it, it implanted a feeling of unbridled, \"oh snap i'm dying\", in me. alerts blare alongside an unfamiliar, unfriendly panel that details every important aspect of the experiment, down to their blood oxygen concentration. the death didn't seem as fake as other games make it out to be. there is real tension, real attention inside of casualties: unknown. the game makes you WANT to live, not die and start up another run. you don't think about what you're gonna do when you have to restart the run, you think about how you'll pull yourself through- to keep going. and that's what really makes the game special. i don't think i've ever felt so much whiplash at a nearly black death screen. orsoniks is a wizard and a magician and an amazing game developer who knows how to manipulate the players. play casualties: unknown."],
+    ["expie.gif", "[BIOMETRIC REPORT - 25##-11-19-18-49-58-4587]\n<>\nENTITY CLASS: Biological\nENTITY SUBCLASS: Sawian\nENTITY NAME: Experiment\n<>\n[CONTENTS]\n\nThe stable biological version of our newest project is ready.\nIt appears that, mentally, there wasn't and will be nothing left of our original human volunteer, not to mention the rest of the subjects.\nDespite that, they seem to be learning fast, and are not retaliating.\n<>\nThe DNA combination caused the Experiment to be considerably smaller in stature than a human person, and lack fat and muscle mass.\nDespite this, it's muscle and bone density is much higher. This will assumbly result in the specimen being resilient to various forms of physical trauma... And give it a hard time swimming.\nIt has three protrusions at the back of its skull, of form similar to ear cartilage. Somehow, it has an ear structure similar to that of an avian - must've been lying around somewhere in the DNA we spliced.\nIt is thinly furred, and has pink-ish yellow-ish flesh, as seen on wounds and on the inside of the mouth.\nIts hands are some kind of combination between a canine's and a homosapiens'. I know one of my co-workers is going to enjoy the paws-\nSomehow, the bioluminescent eyes from our earlier prototypes of this species have stayed. We are yet to determine the exact effects this has on their sight.\n<>\nWe will soon clone this specimen 30 times to conduct destructive testing on the clones. We will leave a few to naturally reproduce, to save on resources.\n\n[END]"],
     ["marinakaplan.gif", "zat o"],
     ["jarvis.gif", "for educational purposes only"],
     "arayashiki.gif",
@@ -81,7 +82,6 @@ const fileNames = [
 let available = fileNames.slice();
 let coolText = document.getElementById("coolText");
 let typewriteInterval = null;
-document.getElementById("audio").play();
 function setCoolImgOpacity(){
     coolImage.style["opacity"] = coolImageOpacity;
 }
@@ -118,8 +118,6 @@ function removeAvailable(gifName){
         shuffleSound.play();
     }
 }
-setCoolImgOpacity();
-setRandomImage();
 setInterval(function(){
     if (!coolImage.complete){
         lastTime = getTime();
@@ -127,14 +125,18 @@ setInterval(function(){
     coolImageOpacity = (getTime() - lastTime) * 0.0005;
     setCoolImgOpacity();
 },1000/20)
+//let firstClick = true;
 
 function onClick(){
+    document.getElementById("audio").play();
     lastTime = getTime();
     coolImageOpacity = 0;
     setCoolImgOpacity();
     setRandomImage();
 }
 function setRandomImage(){
+    lastNaturalWidth = coolImage.width;
+    console.log(lastNaturalWidth);
     let selectedGifName;
     let num = getRandomInt(available.length);
     selectedGifName = available[num];
@@ -145,11 +147,196 @@ function setRandomImage(){
         appearSound.pause();
         appearSound.currentTime = 0;
         appearSound.play();
+        randomizeDocTitle(selectedGifName[0]);
     }else{
         coolImage.src = "./images/"+selectedGifName;
         displayText("");
+        randomizeDocTitle(selectedGifName);
     }
     
+}
+let casUTitles = [
+    "Target planet",
+    "Gray planet",
+    "Gravel lands",
+    "Radioactive wasteland",
+    "Deeper gravel lands",
+    "Dried desert",
+    "Overgrown depths",
+    "Frozen chasm",
+    "Fungal pools",
+    "Crystalline hollow",
+    "Geothermal vents",
+    "An expression of malignant intent, from something far, far beyond your limited physical comprehension.",
+    "I am the all that I possess. Are you?",
+    "You really think this thing is worth getting all the way down there? I can make plenty more.",
+    "There is always a price of silence.",
+    "Always watching.",
+    "I can wait all day.",
+    "I am still here.",
+    "It's impolite to make someone wait.",
+    "Make sure to stretch your legs.",
+    "How interesting. Please continue.",
+    "This place has more interest than you could ever comprehend."
+]
+let documentTitles = [
+    "brandon6875935",
+    "purple deviled egg",
+    "faith the unholy trinity",
+    "what",
+    "christmas time is here",
+    "demo 6",
+    "moonlit kingdom",
+    "716",
+    "sky islands",
+    "the depths",
+    "rochas313",
+    "ive always been here",
+    "the remains",
+    "the silent orchestra",
+    "burning basement",
+    "spectre's realm",
+    "house of spiders",
+    "master spark",
+    "city of tears",
+    "emerald lakeside",
+    "Muses",
+    "inkwell isle one",
+    "1273",
+    "skeld",
+    "the fire is flickering.",
+    "london",
+    "act 3 - the beyond",
+    "act 2 - the city",
+    "act 1 - the exordium",
+    "glory",
+    "nuke the whales",
+    "safety department",
+    "floor of general works",
+    "my summer website",
+    "trinity council",
+    "undead nocturn",
+    "pax in morte",
+    "The Isle",
+    "[WINDY ISLAND]",
+    "[TEN-MOU]",
+    "Guenther Calland",
+    "final hours",
+    "yorick's resting place",
+    "erdtree",
+    "mansion",
+    "is this thing on?",
+    "a few quick matches",
+    "pico park",
+    "peak",
+    "aperture science enrichment center",
+    "GLaDOS",
+    "wisp",
+    "kit_4seasons",
+    "omni pebbles",
+    "chris pratt!",
+    ":3",
+    "onett",
+    "sawian nuclear power plant",
+    "black mesa",
+    "the parish",
+    "lose your way. find your voice",
+    "hiisi base",
+    "ventricular tachycardia",
+    "it come with egg roll",
+    "Nashatra Bealdhild",
+    "nether",
+    "hollow",
+    "corruption",
+    "wall of flesh",
+    "crimson",
+    "void",
+    "nullscape",
+    "the celestial",
+    "Find Your Flame",
+    "Won't you hear my Symphony?",
+    "It Doesn't End Here",
+    "completing the mission",
+    "fleeing the complex",
+    "all hail tom scott",
+    "competent",
+    "carrion",
+    "pizzeria",
+    "Hatred",
+    "the stalker",
+    "The Nobody",
+    "Wilson Nyugen",
+    "wordle",
+    "illusionary",
+    "asya shubina",
+    "schoolhouse",
+    "town of salem",
+    "runescape",
+    "bloons tower defense",
+    "truman show",
+    "the defect",
+    "saikai",
+    "alan becker",
+    "hi",
+    "hey",
+    "what's up",
+    "creature feature",
+    "20-Adamance",
+    "8-Titan",
+    "71-Gordion",
+    "they're in the walls",
+    "snowdin",
+    "hotland",
+    "Futures, made of...",
+    "only.time.will.tell",
+    "builders united league",
+    "reliable excavation demolition",
+    "You hear a whir...",
+    "mosa lina",
+    "baba is you",
+    "madeline",
+    "mount celeste",
+    "path of pain",
+    "orange hell",
+    "red44",
+    "satyr44",
+    "could a moron punch you into this pit",
+    "zombie on your lawn",
+    "afterbeat",
+    "project arrythmia",
+    "cult of the lamb",
+    "on firewatch",
+    "gone fishing",
+    "garry's mod",
+    "jack move",
+    "gigastructure",
+    "some kind of evil resident",
+    "rotate or die",
+    "blood is fuel",
+    "artful",
+    "The Clock Reads, 12,436,870,604,121:01AM.",
+    "critical strike",
+    "countless worlds...",
+    "nexus gd",
+    "zoink",
+    "draw 5 strikes",
+    "Papers, please.",
+    "the one who waits",
+    "the world machine",
+    "uncle ben what happened",
+    "Your Only Move Is HUSTLE"
+];
+function randomizeDocTitle(gifName){
+    let finalTitle = documentTitles[getRandomInt(documentTitles.length)];
+    switch(gifName){
+        case "":
+            finalTitle = "";
+            break;
+        case "expie.gif":
+            finalTitle = casUTitles[getRandomInt(casUTitles.length)];
+            break;
+    }
+    document.title = finalTitle;
 }
 
 document.addEventListener("click",onClick);

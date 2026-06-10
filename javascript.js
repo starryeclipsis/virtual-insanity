@@ -324,7 +324,9 @@ let documentTitles = [
     "the one who waits",
     "the world machine",
     "uncle ben what happened",
-    "Your Only Move Is HUSTLE"
+    "Your Only Move Is HUSTLE",
+    "After The Flash",
+    
 ];
 function randomizeDocTitle(gifName){
     let finalTitle = documentTitles[getRandomInt(documentTitles.length)];

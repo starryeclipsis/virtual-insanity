@@ -3,7 +3,6 @@ let coolImageOpacity = 0;
 let lastTime = Date.now();
 let appearSound = new Audio("./whyhellogordonfreeman.wav");
 let shuffleSound = new Audio("./mafia.ogg");
-let lastNaturalWidth = 0;
 const fileNames = [
     "catexplosion.gif",
     "hopebunny.gif",
@@ -125,7 +124,6 @@ setInterval(function(){
     coolImageOpacity = (getTime() - lastTime) * 0.0005;
     setCoolImgOpacity();
 },1000/20)
-//let firstClick = true;
 
 function onClick(){
     document.getElementById("audio").play();
@@ -133,10 +131,9 @@ function onClick(){
     coolImageOpacity = 0;
     setCoolImgOpacity();
     setRandomImage();
+    console.log("clicked");
 }
 function setRandomImage(){
-    lastNaturalWidth = coolImage.width;
-    console.log(lastNaturalWidth);
     let selectedGifName;
     let num = getRandomInt(available.length);
     selectedGifName = available[num];
